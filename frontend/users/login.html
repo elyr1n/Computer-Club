@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+
+{% block title %}Вход{% endblock %}
+
+{% block content %}
+<div class="cyber-card">
+    <div class="text-center mb-8">
+        <h1 class="text-3xl font-bold tracking-tighter text-white uppercase italic">
+            Computer<span class="text-purple-500">-</span>Club
+        </h1>
+        <p class="text-[10px] text-gray-500 uppercase tracking-widest mt-1">Инициализация сессии</p>
+    </div>
+
+    {% if messages %}
+        {% for message in messages %}
+            {% if message.tags == "success" %}
+            <div class="alert-success">{{ message }}</div>
+            {% endif %}
+        {% endfor %}
+    {% endif %}
+
+    <form method="post" class="space-y-5">
+        {% csrf_token %}
+        
+        {% for field in form %}
+        <div class="space-y-1">
+            <label class="text-[10px] font-bold text-gray-400 uppercase ml-1">{{ field.label }}</label>
+            {{ field }}
+            
+            {% if field.errors %}
+                {% for error in field.errors %}
+                    <p class="text-red-500 text-[10px] font-bold uppercase mt-1 italic ml-1">{{ error }}</p>
+                {% endfor %}
+            {% endif %}
+        </div>
+        {% endfor %}
+
+        {% if form.non_field_errors %}
+            <div class="text-red-500 text-[10px] font-bold uppercase text-center p-2 border border-red-500/30 bg-red-500/10">
+                {{ form.non_field_errors|first }}
+            </div>
+        {% endif %}
+
+        <button type="submit" class="btn-primary mt-4">
+            Войти в систему
+        </button>
+    </form>
+
+    <div class="mt-6 text-center">
+        <a href="{% url 'users:sign-up' %}" class="text-gray-500 text-[10px] uppercase hover:text-purple-400 transition-all">
+            Нет аккаунта? Регистрация
+        </a>
+    </div>
+</div>
+{% endblock %}

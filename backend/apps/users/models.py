@@ -12,6 +12,7 @@ class CustomUserManager(BaseUserManager):
         user.save(using=self._db)
 
     def create_superuser(self, username, password=None, **extra_fields):
+        extra_fields.setdefault("is_vip", True)
         extra_fields.setdefault("is_staff", True)
         extra_fields.setdefault("is_superuser", True)
 
@@ -26,6 +27,10 @@ class CustomUserManager(BaseUserManager):
 class CustomUser(AbstractUser):
     id = models.AutoField(primary_key=True)
     username = models.CharField(max_length=16, unique=True, verbose_name="Ник-нейм")
+    avatar = models.ImageField(
+        upload_to="avatars/", null=True, blank=True, verbose_name="Аватар"
+    )
+    is_vip = models.BooleanField(default=False, verbose_name="VIP Статус")
 
     USERNAME_FIELD = "username"
     REQUIRED_FIELDS = []

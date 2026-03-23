@@ -23,6 +23,7 @@ INSTALLED_APPS = [
 
 LOCAL_APPS = [
     "apps.users",
+    "apps.main",
 ]
 
 INSTALLED_APPS += LOCAL_APPS
@@ -70,6 +71,8 @@ DATABASES = {
 
 AUTH_USER_MODEL = "users.CustomUser"
 
+LOGIN_URL = "/users/login/"
+
 AUTH_PASSWORD_VALIDATORS = [
     {
         "NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator",
@@ -99,8 +102,6 @@ if (BASE_DIR.parent / "static").exists():
 
 MEDIA_URL = "/media/"
 MEDIA_ROOT = BASE_DIR.parent / "media"
-
-DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 LOGGING = {
     "version": 1,
