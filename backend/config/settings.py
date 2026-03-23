@@ -21,6 +21,12 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
 ]
 
+LOCAL_APPS = [
+    "apps.users",
+]
+
+INSTALLED_APPS += LOCAL_APPS
+
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
@@ -61,6 +67,8 @@ DATABASES = {
         "ATOMIC_REQUESTS": True,
     }
 }
+
+AUTH_USER_MODEL = "users.CustomUser"
 
 AUTH_PASSWORD_VALIDATORS = [
     {
